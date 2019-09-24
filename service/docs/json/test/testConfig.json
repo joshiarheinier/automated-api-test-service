@@ -1,0 +1,114 @@
+{
+  "config_name": "API Test Cases",
+  "hostname": "http://localhost",
+  "port": ":8182",
+  "schema": [
+    {
+      "test_title": "TestSample1Success",
+      "jobs": [
+        {
+          "test_name": "sample1Success",
+          "try": 1,
+          "url": "/v1/testcase/one",
+          "method": "GET",
+          "params": {},
+          "header": {},
+          "body": {},
+          "save_keys": [],
+          "expected": {
+            "response_status": "200",
+            "body": {}
+          }
+        }
+      ]
+    },
+    {
+      "test_title": "TestSample23Success",
+      "jobs": [
+        {
+          "test_name": "sample2Success",
+          "try": 1,
+          "url": "/v1/testcase/two",
+          "method": "POST",
+          "params": {},
+          "header": {
+            "Content-Type" : "application/json"
+          },
+          "body": {
+            "name" : "Joshia"
+          },
+          "save_keys": ["nextId"],
+          "expected": {
+            "response_status": "200",
+            "body": {
+              "status" : "1"
+            }
+          }
+        },
+        {
+          "test_name": "sample3Success",
+          "try": 1,
+          "url": "/v1/testcase/three",
+          "method": "POST",
+          "params": {},
+          "header": {
+            "Content-Type" : "application/x-www-form-urlencoded"
+          },
+          "body": {
+            "name" : "Joshia",
+            "nextId" : "%nextId%"
+          },
+          "save_keys": [],
+          "expected": {
+            "response_status": "200",
+            "body": {
+              "status" : "SUCCESS"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "test_title": "TestSample3NoNextId",
+      "jobs": [
+        {
+          "test_name": "sample3NoNextId",
+          "try": 1,
+          "url": "/v1/testcase/three",
+          "method": "POST",
+          "params": {},
+          "header": {
+            "Content-Type" : "application/json"
+          },
+          "body": {
+            "name" : "Joshia"
+          },
+          "save_keys": [],
+          "expected": {
+            "response_status": "400",
+            "body": {}
+          }
+        }
+      ]
+    },
+    {
+      "test_title": "TestSample4No200",
+      "jobs": [
+        {
+          "test_name": "sample2No200",
+          "try": 1,
+          "url": "/foo/bar",
+          "method": "GET",
+          "params": {},
+          "header": {},
+          "body": {},
+          "save_keys": [],
+          "expected": {
+            "response_status": "!200",
+            "body": {}
+          }
+        }
+      ]
+    }
+  ]
+}
