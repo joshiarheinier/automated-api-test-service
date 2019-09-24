@@ -3,7 +3,7 @@ package main
 import (
 	// "database/sql"
 	"github.com/gin-gonic/gin"
-	"github.com/joshia/automated-api-test-suite/service/controllers"
+	"github.com/joshia/automated-api-test-service/service/controllers"
 )
 
 

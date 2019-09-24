@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"github.com/joshia/automated-api-test-suite/testapp/docs"
-	"github.com/joshia/automated-api-test-suite/testapp/testlib"
+	"github.com/joshia/automated-api-test-service/testapp/docs"
+	"github.com/joshia/automated-api-test-service/testapp/testlib"
 	"io/ioutil"
 )
 
