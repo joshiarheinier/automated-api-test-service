@@ -9,7 +9,6 @@ import (
 	"io/ioutil"
 )
 
-var isErr = false
 
 func StartAPITest(c *gin.Context) {
 	ex := testlib.Initiate()
@@ -39,8 +38,7 @@ func StartAPITest(c *gin.Context) {
 			if !validator.ExpectResponseStatus(job.Expected.Status) || !validator.ExpectBody(job.Expected.Body) {
 				msg := "Test failed on:\nTest Title: " + schema.TestTitle + "\nTest Name: " + job.TestName
 				reply(500, msg, c)
-				isErr = true
-				break
+				return
 			}
 			if len(job.SaveKeys) != 0 {
 				for i := range job.SaveKeys {
@@ -48,11 +46,8 @@ func StartAPITest(c *gin.Context) {
 				}
 			}
 		}
-		if isErr {break}
 	}
-	if !isErr {
-		reply(200, "PASS", c)
-	}
+	reply(200, "PASS", c)
 }
 
 func reply(status int, message string, c *gin.Context) {
