@@ -1,13 +1,9 @@
-package docs
+package config
 
 import (
 	"encoding/json"
-	"log"
 )
 
-const (
-	ErrFailedToDecodeConfigurationFile = "Failed to decode configuration file: %v\n"
-)
 
 type TestConfiguration struct {
 	ConfigName	string			`json:"config_name"`
@@ -38,13 +34,13 @@ type ExpectedResult struct {
 	Body	map[string]interface{}	`json:"body"`
 }
 
-var TestConfigData  = &TestConfiguration{}
+var testConfigData  = &TestConfiguration{}
 
 
-func New(body []byte) *TestConfiguration {
-	err := json.Unmarshal(body, &TestConfigData)
+func NewTestConfig(body []byte) (*TestConfiguration, error) {
+	err := json.Unmarshal(body, &testConfigData)
 	if err != nil {
-		log.Fatalf(ErrFailedToDecodeConfigurationFile, err)
+		return nil, err
 	}
-	return TestConfigData
+	return testConfigData, nil
 }
