@@ -1,4 +1,4 @@
-package wrapper
+package middleware
 
 import (
 	"fmt"
@@ -33,8 +33,8 @@ func NewHTTPHandler(h http.Handler) http.Handler {
 		fmt.Println("Logging...")
 		nw := &ResponseLogger{rw:w}
 		h.ServeHTTP(nw, r) // call original
-		log := fmt.Sprintf("URL:%+v Method:%+v MsgID:%+v Body:%+v RequestHeaders:%+v ResHttpCode:%+v Response:%s",
-			r.RequestURI, r.Method, "abc", nw.body, w.Header(), nw.status, nw.body)
+		log := fmt.Sprintf("URL:%+v Method:%+v RequestId:%+v Body:%+v RequestHeaders:%+v ResHttpCode:%+v Response:%s",
+			r.RequestURI, r.Method, r.Header.Get("requestId"), nw.body, w.Header(), nw.status, nw.body)
 		if nw.status != 200 {
 			logger.Error(log)
 			return
