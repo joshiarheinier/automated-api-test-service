@@ -25,7 +25,6 @@ func setOutputFile(filepath string, filename string, maxSize int, maxBackup int,
 		MaxAge:     maxAge,   //days
 		Compress:   compress, // disabled by default
 	}
-	context.WithTimeout()
 }
 
 func init()  {
