@@ -3,7 +3,8 @@ package logger
 import (
 	"context"
 	"fmt"
-	config "github.com/joshia/automated-api-test-service/testapp/config/log"
+	"github.com/joshia/automated-api-test-service/testapp/config"
+	logcfg "github.com/joshia/automated-api-test-service/testapp/config/structs"
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -24,14 +25,15 @@ func setOutputFile(filepath string, filename string, maxSize int, maxBackup int,
 		MaxAge:     maxAge,   //days
 		Compress:   compress, // disabled by default
 	}
+	context.WithTimeout()
 }
 
 func init()  {
 	logger = logrus.New()
-	New(config.NewLogConfig())
+	New(config.NewConfig().Logger)
 }
 
-func New(conf *config.LogConfiguration) {
+func New(conf *logcfg.LogConfiguration) {
 	fileFormatter := &logrus.JSONFormatter{
 		TimestampFormat: "2006-01-02 15:04:05",
 	}

@@ -13,7 +13,6 @@ import (
 func main()  {
 	r := gin.Default()
 
-	r.Use(middleware.InjectRequestId())
 	controllers.SetUpRouter(r)
 	// Listen and Server in 0.0.0.0:8183
 	s := &http.Server{

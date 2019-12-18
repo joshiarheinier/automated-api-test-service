@@ -1,17 +1,14 @@
 package middleware
 
 import (
-	"github.com/gin-gonic/gin"
+	"context"
 	"github.com/joshia/automated-api-test-service/testapp/lib/uuid"
+	"net/http"
 )
 
-func InjectRequestId() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		rId := c.Request.FormValue("requestId")
-		if rId == "" {
-			rId = uuid.NewRequestId()
-		}
-		c.Request.Header.Add("requestId", rId)
-		c.Next()
-	}
+func InjectRequestId(r *http.Request) *http.Request {
+	ctx := r.Context()
+	ctx = context.WithValue(ctx, "requestId", uuid.NewRequestId())
+	r = r.WithContext(ctx)
+	return r
 }

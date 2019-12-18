@@ -32,9 +32,10 @@ func NewHTTPHandler(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Logging...")
 		nw := &ResponseLogger{rw:w}
+		r = InjectRequestId(r)
 		h.ServeHTTP(nw, r) // call original
 		log := fmt.Sprintf("URL:%+v Method:%+v RequestId:%+v Body:%+v RequestHeaders:%+v ResHttpCode:%+v Response:%s",
-			r.RequestURI, r.Method, r.Header.Get("requestId"), nw.body, w.Header(), nw.status, nw.body)
+			r.RequestURI, r.Method, r.Context().Value("requestId"), nw.body, w.Header(), nw.status, nw.body)
 		if nw.status != 200 {
 			logger.Error(log)
 			return
