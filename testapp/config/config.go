@@ -2,7 +2,7 @@ package config
 
 import (
 	"encoding/json"
-	"github.com/joshia/automated-api-test-service/testapp/apperror"
+	"github.com/joshia/automated-api-test-service/testapp/config/apperror"
 	"github.com/joshia/automated-api-test-service/testapp/config/structs"
 	"io/ioutil"
 	"log"

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/joshia/automated-api-test-service/testapp/config/apperror"
 	"github.com/joshia/automated-api-test-service/testapp/models"
 )
 
@@ -9,16 +10,18 @@ import (
 func StartAPITest(c *gin.Context) {
 	tc, err := models.GetTesterComponent(c)
 	if err != nil {
-		reply(500, err.Error(), c)
+		err := apperror.NewV1Error("ERR000", err)
+		reply(err.HttpCode, err, c)
+		return
 	}
 	if err := models.TestAPI(tc); err != nil {
-		reply(500, err.Error(), c)
+		err := apperror.NewV1Error("ERR000", err)
+		reply(err.HttpCode, err, c)
+		return
 	}
-	reply(200, "PASS", c)
+	reply(200, gin.H{"message":"PASS"}, c)
 }
 
-func reply(status int, message string, c *gin.Context) {
-	c.JSON(status, &gin.H{
-		"message" : message,
-	})
+func reply(status int, res interface{}, c *gin.Context) {
+	c.JSON(status, &res)
 }

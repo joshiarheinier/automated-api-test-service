@@ -23,6 +23,9 @@ func (w *ResponseLogger) WriteHeader(status int) {
 
 func (w *ResponseLogger) Write(b []byte) (int, error) {
 	w.body = string(b)
+	if w.status != 200 {
+		b = RewriteErrorResponse(b)
+	}
 	return w.rw.Write(b)
 }
 

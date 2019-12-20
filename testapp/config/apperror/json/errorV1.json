@@ -1,0 +1,9 @@
+{
+  "ERR000":
+  {
+    "error_code": "ERR000",
+    "public_message": "Internal Server Error.",
+    "debug_message": "%s",
+    "http_code": 500
+  }
+}

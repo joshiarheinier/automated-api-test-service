@@ -4,7 +4,7 @@ import (
 	// "database/sql"
 	"github.com/gin-gonic/gin"
 	"github.com/joshia/automated-api-test-service/testapp/controllers"
-	"github.com/joshia/automated-api-test-service/testapp/middleware/request"
+	"github.com/joshia/automated-api-test-service/testapp/middleware/message"
 	"net/http"
 	"time"
 )
