@@ -9,6 +9,8 @@ import (
 	"github.com/sirupsen/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
 	"io"
+	"log"
+	"os"
 	"time"
 )
 
@@ -18,8 +20,12 @@ var (
 
 type Fields map[string]interface{}
 func setOutputFile(filepath string, filename string, maxSize int, maxBackup int, maxAge int, compress bool) io.Writer {
+	abspath := fmt.Sprintf("%s/%s", filepath, filename)
+	if _, err := os.OpenFile(abspath, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0644); err != nil {
+		log.Fatalf("Failed to access log file: %v\n", err)
+	}
 	return &lumberjack.Logger{
-		Filename:   fmt.Sprintf("%s/%s", filepath, filename),
+		Filename:   abspath,
 		MaxSize:    maxSize, // megabytes
 		MaxBackups: maxBackup,
 		MaxAge:     maxAge,   //days
@@ -54,6 +60,7 @@ func New(conf *logcfg.LogConfiguration) {
 	)
 	logger.SetFormatter(stdoutFormatter)
 	logger.SetLevel(getLevel(conf.Level))
+	Info("Log file initiated.")
 }
 func getLevel(level string) logrus.Level {
 	if level == "error" {
