@@ -1,7 +1,7 @@
 {
   "logger" :
     {
-      "file_path": "/Users/ovo/log/myapp",
+      "file_path": "/Users/xxx/log/myapp",
       "log_file_name": "application.log",
       "error_log_file_name": "application.log",
       "debug_log_file_name": "application.debug.log",
